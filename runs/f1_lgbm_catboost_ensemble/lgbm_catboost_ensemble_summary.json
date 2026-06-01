@@ -1,0 +1,47 @@
+{
+  "runtime_seconds": 1987.0761606693268,
+  "n_train": 540445,
+  "n_test": 188165,
+  "n_features": 21,
+  "features": [
+    "Driver",
+    "Compound",
+    "Race",
+    "Year",
+    "PitStop",
+    "LapNumber",
+    "Stint",
+    "TyreLife",
+    "Position",
+    "LapTime_s",
+    "LapTime_Delta",
+    "Cumulative_Degradation",
+    "RaceProgress",
+    "Position_Change",
+    "tyre_life_ratio",
+    "progress_x_tyre",
+    "LapNumber_minus_TyreLife",
+    "AveLapTime",
+    "progress_x_degradation",
+    "lap_per_progress",
+    "estimated_total_distance_km"
+  ],
+  "lgbm_ab_selected_oof_auc": 0.958394235955519,
+  "catboost_oof_auc": 0.9591972894969755,
+  "ensemble_oof_auc": 0.960446270458643,
+  "best_ensemble_weights": {
+    "lgbm_ab_selected": 0.427,
+    "catboost": 0.573,
+    "oof_auc": 0.960446270458643,
+    "grid_size": 1001,
+    "runtime_seconds": 173.76287841796875
+  },
+  "outputs": {
+    "catboost_submission": "runs\\f1_lgbm_catboost_ensemble\\submission_005_catboost.csv",
+    "ensemble_submission": "runs\\f1_lgbm_catboost_ensemble\\submission_007_lgbm_catboost_ensemble.csv",
+    "catboost_oof": "runs\\f1_lgbm_catboost_ensemble\\catboost_oof.csv",
+    "ensemble_oof": "runs\\f1_lgbm_catboost_ensemble\\ensemble_oof.csv",
+    "weights": "runs\\f1_lgbm_catboost_ensemble\\best_ensemble_weights.json",
+    "correlation": "runs\\f1_lgbm_catboost_ensemble\\prediction_correlation_matrix.csv"
+  }
+}

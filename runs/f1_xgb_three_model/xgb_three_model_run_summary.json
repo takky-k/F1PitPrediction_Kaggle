@@ -1,0 +1,132 @@
+{
+  "runtime_seconds": 2708.516124486923,
+  "args": {
+    "input_dir": ".\\data",
+    "stage2_run_dir": ".\\runs\\f1_stage2_ensemble",
+    "catboost_run_dir": ".\\runs\\f1_lgbm_catboost_ensemble",
+    "output_dir": ".\\runs\\f1_xgb_three_model",
+    "helper_file": "auto",
+    "original_file": "auto",
+    "metadata_file": "auto",
+    "target": "PitNextLap",
+    "id_col": "id",
+    "n_folds": 5,
+    "seed": 42,
+    "n_jobs": -1,
+    "min_existing_auc": 0.9,
+    "pred_clip_eps": 1e-07,
+    "xgboost_n_estimators": 700,
+    "xgboost_learning_rate": 0.035,
+    "xgboost_max_depth": 4,
+    "xgboost_min_child_weight": 80.0,
+    "xgboost_subsample": 0.85,
+    "xgboost_colsample_bytree": 0.75,
+    "xgboost_reg_alpha": 0.2,
+    "xgboost_reg_lambda": 8.0,
+    "xgboost_max_bin": 256,
+    "xgboost_early_stopping": 80,
+    "weight_step": 0.01,
+    "random_weight_trials": 8000,
+    "make_rank_ensemble": false
+  },
+  "environment": {
+    "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "pandas": "3.0.3",
+    "numpy": "2.4.6",
+    "xgboost": "3.2.0"
+  },
+  "selected_features_count": 21,
+  "existing_model_scores": {
+    "lgbm_ab_oof_auc": 0.958394235955519,
+    "catboost_oof_auc": 0.9591972894969755
+  },
+  "xgboost_summary": {
+    "tag": "xgboost_light700",
+    "model": "XGBoost hist",
+    "oof_auc": 0.9426771273343914,
+    "fold_valid_auc_mean": 0.9426814395682408,
+    "fold_valid_auc_std": 0.0005673516317173241,
+    "fold_train_auc_mean": 0.9439860345553633,
+    "fold_gap_mean": 0.0013045949871224095,
+    "best_iteration_mean": 699.0,
+    "runtime_seconds": 713.2133255004883,
+    "params": {
+      "objective": "binary:logistic",
+      "eval_metric": "auc",
+      "tree_method": "hist",
+      "learning_rate": 0.035,
+      "max_depth": 4,
+      "min_child_weight": 80.0,
+      "subsample": 0.85,
+      "colsample_bytree": 0.75,
+      "reg_alpha": 0.2,
+      "reg_lambda": 8.0,
+      "max_bin": 256,
+      "seed": 42,
+      "nthread": -1
+    },
+    "folds": [
+      {
+        "fold": 1,
+        "valid_auc": 0.9428888270251586,
+        "train_auc": 0.9441164238991099,
+        "gap": 0.0012275968739512422,
+        "best_iteration": 699,
+        "fold_time_seconds": 137.60286664962769,
+        "model_path": "runs\\f1_xgb_three_model\\models\\xgboost_light700\\xgboost_xgboost_light700_fold1.json"
+      },
+      {
+        "fold": 2,
+        "valid_auc": 0.9430315889824222,
+        "train_auc": 0.9440017695736541,
+        "gap": 0.0009701805912318839,
+        "best_iteration": 699,
+        "fold_time_seconds": 143.4570813179016,
+        "model_path": "runs\\f1_xgb_three_model\\models\\xgboost_light700\\xgboost_xgboost_light700_fold2.json"
+      },
+      {
+        "fold": 3,
+        "valid_auc": 0.9427432609501596,
+        "train_auc": 0.9439098474944443,
+        "gap": 0.0011665865442846979,
+        "best_iteration": 699,
+        "fold_time_seconds": 142.68393445014954,
+        "model_path": "runs\\f1_xgb_three_model\\models\\xgboost_light700\\xgboost_xgboost_light700_fold3.json"
+      },
+      {
+        "fold": 4,
+        "valid_auc": 0.9415817601270262,
+        "train_auc": 0.9440650453842061,
+        "gap": 0.0024832852571798902,
+        "best_iteration": 699,
+        "fold_time_seconds": 143.06657791137695,
+        "model_path": "runs\\f1_xgb_three_model\\models\\xgboost_light700\\xgboost_xgboost_light700_fold4.json"
+      },
+      {
+        "fold": 5,
+        "valid_auc": 0.9431617607564375,
+        "train_auc": 0.9438370864254019,
+        "gap": 0.0006753256689643328,
+        "best_iteration": 699,
+        "fold_time_seconds": 146.02858448028564,
+        "model_path": "runs\\f1_xgb_three_model\\models\\xgboost_light700\\xgboost_xgboost_light700_fold5.json"
+      }
+    ]
+  },
+  "three_model_ensemble": {
+    "oof_auc": 0.960446270458643,
+    "weights": {
+      "lgbm_ab": 0.427,
+      "catboost": 0.573,
+      "xgboost_light700": 0.0
+    },
+    "weight_search_method": "random"
+  },
+  "rank_ensemble": null,
+  "recommended_submission_order": [
+    "submission_021_lgbm_catboost_xgboost_ensemble.csv",
+    "submission_020_xgboost_light700.csv",
+    null
+  ]
+}

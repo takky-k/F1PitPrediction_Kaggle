@@ -1,0 +1,7 @@
+{
+  "best_weights": {
+    "lgbm_ab": 0.0,
+    "catboost_iter2000": 1.0
+  },
+  "best_oof_auc": 0.9600222400202538
+}

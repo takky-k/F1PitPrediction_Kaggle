@@ -1,0 +1,45 @@
+{
+  "valid_auc_mean": 0.9557560762275468,
+  "valid_auc_std": 0.00048443609042694125,
+  "train_auc_mean": 0.9962007130668088,
+  "train_auc_std": 0.0008880619161282169,
+  "overfit_gap_mean": 0.040444636839261916,
+  "best_iteration_mean": 3611.6,
+  "best_iteration_median": 3502.0,
+  "fold_valid_aucs": [
+    0.9557285186042191,
+    0.9563956645984709,
+    0.9554588452282522,
+    0.9550393628393411,
+    0.9561579898674508
+  ],
+  "fold_train_aucs": [
+    0.9950829698639091,
+    0.9972469070033757,
+    0.9955489885448613,
+    0.9972380314224877,
+    0.99588666849941
+  ],
+  "features": [
+    "Driver",
+    "Compound",
+    "Race",
+    "Year",
+    "PitStop",
+    "LapNumber",
+    "Stint",
+    "TyreLife",
+    "Position",
+    "LapTime_s",
+    "LapTime_Delta",
+    "Cumulative_Degradation",
+    "RaceProgress",
+    "Position_Change"
+  ],
+  "n_features": 14,
+  "name": "baseline",
+  "submission": "submission_001_baseline.csv",
+  "test_pred_file": "baseline_test_pred.csv",
+  "oof_file": "baseline_oof.csv",
+  "features_file": "baseline_features.txt"
+}

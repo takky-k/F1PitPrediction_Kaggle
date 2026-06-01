@@ -1,0 +1,4 @@
+model,oof_auc
+catboost_iter2000,0.9600222400202538
+lgbm_catboost2000_ensemble,0.9600222400202538
+lgbm_ab,0.5312628469859909

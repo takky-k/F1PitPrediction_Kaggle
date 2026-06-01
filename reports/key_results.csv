@@ -1,0 +1,8 @@
+experiment,oof_auc,main_weight_or_setting,source_artifact,notes
+stage2_lgbm_baseline,0.9557560762,14 features,runs/f1_stage2_ensemble/baseline_cv_summary.json,Stage-2 LightGBM baseline.
+stage2_lgbm_ab_selected,0.9583942360,21 selected features,runs/f1_lgbm_catboost_ensemble/lgbm_catboost_ensemble_summary.json,Selected-feature LightGBM used for blending.
+catboost_selected_features,0.9591972895,CatBoost default ensemble run,runs/f1_lgbm_catboost_ensemble/lgbm_catboost_ensemble_summary.json,Strongest single model in the main two-model path.
+lgbm_catboost_probability_blend,0.9604462705,LGBM 0.427 / CatBoost 0.573,runs/f1_lgbm_catboost_ensemble/lgbm_catboost_ensemble_summary.json,Best OOF result in this workspace.
+xgboost_light700,0.9426771273,700 estimators,runs/f1_xgb_three_model/xgb_three_model_run_summary.json,Tested as a third model but did not improve the blend.
+three_model_ensemble,0.9604462705,LGBM 0.427 / CatBoost 0.573 / XGBoost 0.0,runs/f1_xgb_three_model/xgb_three_model_run_summary.json,Equivalent to the two-model blend because XGBoost received zero weight.
+catboost2000_followup,0.9600222400,2000 iterations,runs/f1_cat2000_next/next_step_run_summary.json,Strong follow-up but below the best two-model blend.

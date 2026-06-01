@@ -1,0 +1,136 @@
+{
+  "runtime_seconds": 2449.549959897995,
+  "args": {
+    "input_dir": ".\\data",
+    "stage2_run_dir": ".\\runs\\f1_stage2_ensemble",
+    "output_dir": ".\\runs\\f1_cat2000_next",
+    "helper_file": "auto",
+    "original_file": "auto",
+    "metadata_file": "auto",
+    "target": "PitNextLap",
+    "id_col": "id",
+    "n_folds": 5,
+    "seed": 42,
+    "n_jobs": -1,
+    "catboost_iterations": 2000,
+    "catboost_learning_rate": 0.03,
+    "catboost_depth": 8,
+    "catboost_l2_leaf_reg": 6.0,
+    "catboost_random_strength": 1.0,
+    "catboost_subsample": 0.85,
+    "catboost_rsm": 0.85,
+    "catboost_early_stopping": 250,
+    "weight_grid_size": 1001,
+    "run_xgboost": false,
+    "xgboost_n_estimators": 700,
+    "xgboost_learning_rate": 0.035,
+    "xgboost_max_depth": 6,
+    "xgboost_min_child_weight": 20.0,
+    "xgboost_subsample": 0.85,
+    "xgboost_colsample_bytree": 0.75,
+    "xgboost_reg_alpha": 0.1,
+    "xgboost_reg_lambda": 5.0,
+    "xgboost_early_stopping": 80,
+    "three_model_weight_trials": 5000
+  },
+  "environment": {
+    "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "pandas": "3.0.3",
+    "numpy": "2.4.6",
+    "catboost_available": true,
+    "xgboost_available": true
+  },
+  "lgbm_ab_oof_auc": 0.5312628469859909,
+  "catboost_summary": {
+    "tag": "catboost_iter2000",
+    "model": "CatBoostClassifier",
+    "oof_auc": 0.9600222400202538,
+    "fold_valid_auc_mean": 0.9600247595878042,
+    "fold_valid_auc_std": 0.00036077576675589063,
+    "fold_train_auc_mean": 0.9701582145636843,
+    "fold_gap_mean": 0.010133454975880229,
+    "best_iteration_mean": 1998.8,
+    "runtime_seconds": 2337.6328954696655,
+    "params": {
+      "loss_function": "Logloss",
+      "eval_metric": "AUC",
+      "iterations": 2000,
+      "learning_rate": 0.03,
+      "depth": 8,
+      "l2_leaf_reg": 6.0,
+      "random_strength": 1.0,
+      "bootstrap_type": "Bernoulli",
+      "subsample": 0.85,
+      "rsm": 0.85,
+      "random_seed": 42,
+      "allow_writing_files": false,
+      "verbose": false,
+      "thread_count": -1
+    },
+    "folds": [
+      {
+        "fold": 1,
+        "valid_auc": 0.9600499545227135,
+        "train_auc": 0.9705210848729439,
+        "gap": 0.010471130350230395,
+        "best_iteration": 1998,
+        "fold_time_seconds": 494.0781047344208,
+        "model_path": "runs\\f1_cat2000_next\\models\\catboost_iter2000\\catboost_catboost_iter2000_fold1.cbm"
+      },
+      {
+        "fold": 2,
+        "valid_auc": 0.9601498820765938,
+        "train_auc": 0.9697161549849971,
+        "gap": 0.009566272908403284,
+        "best_iteration": 1999,
+        "fold_time_seconds": 481.4734048843384,
+        "model_path": "runs\\f1_cat2000_next\\models\\catboost_iter2000\\catboost_catboost_iter2000_fold2.cbm"
+      },
+      {
+        "fold": 3,
+        "valid_auc": 0.9599170457261593,
+        "train_auc": 0.9702580355231823,
+        "gap": 0.010340989797023026,
+        "best_iteration": 1999,
+        "fold_time_seconds": 455.31759309768677,
+        "model_path": "runs\\f1_cat2000_next\\models\\catboost_iter2000\\catboost_catboost_iter2000_fold3.cbm"
+      },
+      {
+        "fold": 4,
+        "valid_auc": 0.9594457860665458,
+        "train_auc": 0.9702195253590793,
+        "gap": 0.010773739292533446,
+        "best_iteration": 1999,
+        "fold_time_seconds": 450.79563450813293,
+        "model_path": "runs\\f1_cat2000_next\\models\\catboost_iter2000\\catboost_catboost_iter2000_fold4.cbm"
+      },
+      {
+        "fold": 5,
+        "valid_auc": 0.9605611295470085,
+        "train_auc": 0.9700762720782194,
+        "gap": 0.009515142531210996,
+        "best_iteration": 1999,
+        "fold_time_seconds": 454.968088388443,
+        "model_path": "runs\\f1_cat2000_next\\models\\catboost_iter2000\\catboost_catboost_iter2000_fold5.cbm"
+      }
+    ]
+  },
+  "lgbm_catboost2000_ensemble_summary": {
+    "tag": "011_lgbm_catboost2000_ensemble",
+    "oof_auc": 0.9600222400202538,
+    "weights": {
+      "lgbm_ab": 0.0,
+      "catboost_iter2000": 1.0
+    },
+    "submission": "runs\\f1_cat2000_next\\submission_011_lgbm_catboost2000_ensemble.csv"
+  },
+  "xgboost_summary": null,
+  "three_model_ensemble_summary": null,
+  "recommended_submission_order": [
+    "submission_011_lgbm_catboost2000_ensemble.csv",
+    "submission_010_catboost_iter2000.csv",
+    null,
+    null
+  ]
+}

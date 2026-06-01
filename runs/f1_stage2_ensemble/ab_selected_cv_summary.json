@@ -1,0 +1,52 @@
+{
+  "valid_auc_mean": 0.9584056474725049,
+  "valid_auc_std": 0.0004082096129126098,
+  "train_auc_mean": 0.9967713745050565,
+  "train_auc_std": 0.0005142715353206863,
+  "overfit_gap_mean": 0.03836572703255146,
+  "best_iteration_mean": 3313.2,
+  "best_iteration_median": 3237.0,
+  "fold_valid_aucs": [
+    0.9582936997808593,
+    0.9589122693566875,
+    0.9579600275458161,
+    0.9580044456577698,
+    0.9588577950213923
+  ],
+  "fold_train_aucs": [
+    0.9966479628020029,
+    0.9962426411598737,
+    0.9971492537701881,
+    0.997559346494443,
+    0.9962576682987746
+  ],
+  "features": [
+    "Driver",
+    "Compound",
+    "Race",
+    "Year",
+    "PitStop",
+    "LapNumber",
+    "Stint",
+    "TyreLife",
+    "Position",
+    "LapTime_s",
+    "LapTime_Delta",
+    "Cumulative_Degradation",
+    "RaceProgress",
+    "Position_Change",
+    "tyre_life_ratio",
+    "progress_x_tyre",
+    "LapNumber_minus_TyreLife",
+    "AveLapTime",
+    "progress_x_degradation",
+    "lap_per_progress",
+    "estimated_total_distance_km"
+  ],
+  "n_features": 21,
+  "name": "ab_selected",
+  "submission": "submission_002_ab_selected.csv",
+  "test_pred_file": "ab_selected_test_pred.csv",
+  "oof_file": "ab_selected_oof.csv",
+  "features_file": "ab_selected_features.txt"
+}

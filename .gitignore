@@ -1,0 +1,78 @@
+# Local editor / OS files
+.vs/
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments
+.venv/
+venv/
+env/
+.env
+
+# Superseded by requirements.txt
+f1_pitnextlap_requirements.txt
+
+# Superseded by REPORT.md
+docs/
+
+# Kaggle data should be downloaded locally, not committed.
+data/*
+!data/README.md
+
+# Generated predictions, trained models, and large experiment outputs.
+submission*.csv
+*_submission.csv
+*.cbm
+*.pkl
+*.joblib
+*.parquet
+
+runs/*
+
+# Keep only compact run summaries that explain the modeling path.
+!runs/f1_stage2_ensemble/
+runs/f1_stage2_ensemble/*
+!runs/f1_stage2_ensemble/baseline_cv_summary.json
+!runs/f1_stage2_ensemble/ab_selected_cv_summary.json
+!runs/f1_stage2_ensemble/selected_features_after_ab.txt
+!runs/f1_stage2_ensemble/feature_selection_report.csv
+!runs/f1_stage2_ensemble/engineered_feature_catalog.csv
+
+!runs/f1_lgbm_catboost_ensemble/
+runs/f1_lgbm_catboost_ensemble/*
+!runs/f1_lgbm_catboost_ensemble/lgbm_catboost_ensemble_summary.json
+!runs/f1_lgbm_catboost_ensemble/model_oof_score_report.csv
+!runs/f1_lgbm_catboost_ensemble/prediction_correlation_matrix.csv
+!runs/f1_lgbm_catboost_ensemble/best_ensemble_weights.json
+
+!runs/f1_weight_variants/
+runs/f1_weight_variants/*
+!runs/f1_weight_variants/weight_variant_summary.json
+!runs/f1_weight_variants/ensemble_weight_grid.csv
+!runs/f1_weight_variants/rank_blend_report.csv
+
+!runs/f1_xgb_three_model/
+runs/f1_xgb_three_model/*
+!runs/f1_xgb_three_model/xgb_three_model_run_summary.json
+!runs/f1_xgb_three_model/model_oof_score_report.csv
+!runs/f1_xgb_three_model/prediction_correlation_matrix.csv
+!runs/f1_xgb_three_model/best_three_model_weights.json
+
+!runs/f1_cat2000_next/
+runs/f1_cat2000_next/*
+!runs/f1_cat2000_next/next_step_run_summary.json
+!runs/f1_cat2000_next/model_oof_score_report.csv
+!runs/f1_cat2000_next/best_lgbm_catboost2000_weights.json
+
+# Binary notes are better converted to Markdown before committing.
+*.docx

@@ -1,0 +1,5 @@
+model,oof_auc
+three_model_ensemble,0.960446270458643
+catboost,0.9591972894969755
+lgbm_ab,0.958394235955519
+xgboost_light700,0.9426771273343914

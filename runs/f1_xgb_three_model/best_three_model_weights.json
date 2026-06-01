@@ -1,0 +1,9 @@
+{
+  "best_method": "random",
+  "best_oof_auc": 0.960446270458643,
+  "best_weights": {
+    "lgbm_ab": 0.427,
+    "catboost": 0.573,
+    "xgboost_light700": 0.0
+  }
+}

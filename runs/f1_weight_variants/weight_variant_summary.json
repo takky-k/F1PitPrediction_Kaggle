@@ -1,0 +1,106 @@
+{
+  "runtime_seconds": 129.70700764656067,
+  "stage2_run_dir": "runs\\f1_stage2_ensemble",
+  "catboost_run_dir": "runs\\f1_lgbm_catboost_ensemble",
+  "lgbm_oof_path": "runs\\f1_stage2_ensemble\\ab_selected_oof.csv",
+  "lgbm_test_path": "runs\\f1_stage2_ensemble\\ab_selected_test_pred.csv",
+  "catboost_oof_path": "runs\\f1_lgbm_catboost_ensemble\\catboost_oof.csv",
+  "catboost_test_path": "runs\\f1_lgbm_catboost_ensemble\\catboost_test_pred.csv",
+  "lgbm_oof_auc": 0.958394235955519,
+  "catboost_oof_auc": 0.9591972894969755,
+  "prediction_correlation": 0.9756193101111902,
+  "best_probability_blend": {
+    "lgbm_weight": 0.427,
+    "catboost_weight": 0.573,
+    "oof_auc": 0.960446270458643,
+    "file": "submission_best_oof_probability_blend.csv"
+  },
+  "top_10_suggested_submissions": [
+    {
+      "file": "submission_prob_lgbm_0p427_cat_0p573.csv",
+      "blend_type": "probability",
+      "lgbm_weight": 0.427,
+      "catboost_weight": 0.573,
+      "oof_auc": 0.960446270458643,
+      "note": "manual/top-oof probability blend"
+    },
+    {
+      "file": "submission_prob_lgbm_0p426_cat_0p574.csv",
+      "blend_type": "probability",
+      "lgbm_weight": 0.426,
+      "catboost_weight": 0.5740000000000001,
+      "oof_auc": 0.9604462684733401,
+      "note": "manual/top-oof probability blend"
+    },
+    {
+      "file": "submission_prob_lgbm_0p428_cat_0p572.csv",
+      "blend_type": "probability",
+      "lgbm_weight": 0.428,
+      "catboost_weight": 0.5720000000000001,
+      "oof_auc": 0.9604462587743079,
+      "note": "manual/top-oof probability blend"
+    },
+    {
+      "file": "submission_prob_lgbm_0p429_cat_0p571.csv",
+      "blend_type": "probability",
+      "lgbm_weight": 0.429,
+      "catboost_weight": 0.571,
+      "oof_auc": 0.9604462585468252,
+      "note": "manual/top-oof probability blend"
+    },
+    {
+      "file": "submission_prob_lgbm_0p430_cat_0p570.csv",
+      "blend_type": "probability",
+      "lgbm_weight": 0.43,
+      "catboost_weight": 0.5700000000000001,
+      "oof_auc": 0.96044624773106,
+      "note": "manual/top-oof probability blend"
+    },
+    {
+      "file": "submission_prob_lgbm_0p450_cat_0p550.csv",
+      "blend_type": "probability",
+      "lgbm_weight": 0.45,
+      "catboost_weight": 0.55,
+      "oof_auc": 0.9604432715757867,
+      "note": "manual/top-oof probability blend"
+    },
+    {
+      "file": "submission_prob_lgbm_0p400_cat_0p600.csv",
+      "blend_type": "probability",
+      "lgbm_weight": 0.4,
+      "catboost_weight": 0.6,
+      "oof_auc": 0.9604416007572159,
+      "note": "manual/top-oof probability blend"
+    },
+    {
+      "file": "submission_prob_lgbm_0p500_cat_0p500.csv",
+      "blend_type": "probability",
+      "lgbm_weight": 0.5,
+      "catboost_weight": 0.5,
+      "oof_auc": 0.9604141625466437,
+      "note": "manual/top-oof probability blend"
+    },
+    {
+      "file": "submission_rank_lgbm_0p450_cat_0p550.csv",
+      "blend_type": "rank",
+      "lgbm_weight": 0.45,
+      "catboost_weight": 0.55,
+      "oof_auc": 0.9604113357854189,
+      "note": "rank blend; useful if public LB likes ordering more than calibration"
+    },
+    {
+      "file": "submission_rank_lgbm_0p427_cat_0p573.csv",
+      "blend_type": "rank",
+      "lgbm_weight": 0.427,
+      "catboost_weight": 0.573,
+      "oof_auc": 0.9604109130916684,
+      "note": "rank blend; useful if public LB likes ordering more than calibration"
+    }
+  ],
+  "recommended_public_probe_files": [
+    "submission_public_probe_lgbm_0p350_cat_0p650.csv",
+    "submission_public_probe_lgbm_0p400_cat_0p600.csv",
+    "submission_public_probe_lgbm_0p450_cat_0p550.csv",
+    "submission_public_probe_lgbm_0p500_cat_0p500.csv"
+  ]
+}

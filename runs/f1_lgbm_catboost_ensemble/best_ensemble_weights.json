@@ -1,0 +1,7 @@
+{
+  "lgbm_ab_selected": 0.427,
+  "catboost": 0.573,
+  "oof_auc": 0.960446270458643,
+  "grid_size": 1001,
+  "runtime_seconds": 173.76287841796875
+}

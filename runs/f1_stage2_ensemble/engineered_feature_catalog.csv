@@ -1,0 +1,43 @@
+feature,type,description
+tyre_life_ratio,numeric,TyreLife / LapNumber: 今のタイヤをどれくらい長く使っているか
+progress_x_tyre,numeric,RaceProgress * TyreLife: レース進行度とタイヤ劣化の組み合わせ
+compound_tyre_life,categorical,Compound × TyreLife bin
+stint_progress,numeric,Stint * RaceProgress: 何回目のスティントでレースのどこか
+lap_delta_abs,numeric,abs(LapTime_Delta): 異常ラップの検出
+race_avg_pit_lap,numeric,Raceごとの平均ピット周回: PitStop==1のLapNumber平均
+D_number,numeric,DriverがD+数値形式かどうか
+Is_2023,numeric,Year == 2023 flag
+RaceDistanceKm,numeric,RaceDistanceKm: Race名からfallback辞書で付与
+RaceCornerCount,numeric,RaceCornerCount: Race名からfallback辞書で付与
+RaceRound,numeric,RaceRound: Race名からfallback辞書で付与
+RaceMonth,numeric,RaceMonth: Race名からfallback辞書で付与
+SeasonProgress,numeric,RaceRound / その年の最大Round
+Weather,categorical,天気カテゴリ。race_metadata.csvがあれば上書き
+Temperature,numeric,気温。race_metadata.csvがあれば上書き
+Humidity,numeric,湿度。race_metadata.csvがあれば上書き
+is_sprint_weekend,numeric,Sprint weekend flag
+is_qatar_2023,numeric,Qatar 2023 flag
+qatar_2023_near_limit,numeric,Qatar 2023 18周制限に近いタイヤ年齢flag
+is_monaco_2025,numeric,Monaco 2025 special flag
+is_qatar_2025,numeric,Qatar 2025 flag
+qatar_2025_near_limit,numeric,Qatar 2025 25周制限に近いタイヤ年齢flag
+LapNumber_minus_TyreLife,numeric,LapNumber - TyreLife: 前回ピットタイミングに近い情報
+AveLapTime,numeric,同じRace内の平均LapTime_s
+lap_time_minus_race_avg,numeric,LapTime_s - AveLapTime
+lap_time_ratio_race_avg,numeric,LapTime_s / AveLapTime
+tyre_x_lap_delta,numeric,TyreLife * LapTime_Delta
+tyre_x_degradation,numeric,TyreLife * Cumulative_Degradation
+progress_x_degradation,numeric,RaceProgress * Cumulative_Degradation
+position_x_progress,numeric,Position * RaceProgress
+position_change_abs,numeric,abs(Position_Change)
+tyre_life_squared,numeric,TyreLife^2
+race_progress_squared,numeric,RaceProgress^2
+stint_x_tyre,numeric,Stint * TyreLife
+stint_x_lap,numeric,Stint * LapNumber
+remaining_progress,numeric,1 - RaceProgress
+tyre_per_remaining_progress,numeric,TyreLife / remaining progress
+lap_per_progress,numeric,LapNumber / RaceProgress: 推定総周回数に近い値
+estimated_total_distance_km,numeric,RaceDistanceKm * 推定総周回数
+current_distance_km,numeric,RaceDistanceKm * LapNumber
+corners_completed,numeric,RaceCornerCount * LapNumber
+tyre_corner_load,numeric,RaceCornerCount * TyreLife
