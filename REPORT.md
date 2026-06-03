@@ -385,20 +385,87 @@ f1Prediction/
 
 ### 18.1 モデルの種類を大量に増やした
 
-1位の人は、以下のようなモデルを試していました。
+2位の人は、以下のようなモデルを試して結果は表のとおりです。（結果の欄が空白のものは、GPTが考えて候補になりえる学習法を考えて追加したもの）
 
-```text
-XGB
-LGBM
-CatBoost
-RealMLP
-TabM
-HGB
-RF
-YDF
-FT-Transformer
-MLP-PLR
-```
+| rank | model/class | model count | best model | best CV AUC | public LB | private LB | どんなものか | 使いどころ・役割 |
+|---:|---|---:|---|---:|---:|---:|---|---|
+| 1 | RealMLP | 40 | realmlp2_exp147_five_seed_d... | 0.954426 | 0.95382 | 0.95421 | 表形式データ向けに強化されたMLP。木モデルとは違う形で数値特徴量の組み合わせを学ぶ。 | 今回の2位では最強クラス。LightGBM/CatBoostと違うOOFを作る主力。 |
+| 2 | XGBoost | 36 | gpt1020_xgb_orighazard | 0.953553 | 0.95294 | 0.95354 | 定番の勾配ブースティング木モデル。正則化やobjectiveが豊富。 | LightGBM/CatBoostとは違うGBDT枠。自分は改善余地が大きい。 |
+| 3 | CatBoost | 37 | gpt1016_cat_ctrte | 0.953404 | 0.95105 | 0.95190 | カテゴリ変数に強い勾配ブースティング木モデル。 | Driver, Race, Compoundなどカテゴリが多い今回の主力。 |
+| 4 | TabM | 11 | tabm_exp089_wider_artifact_... | 0.953371 | 0.95304 | 0.95345 | 表形式データ向けのニューラルネット系モデル。 | RealMLPと並ぶNN系主力候補。 |
+| 5 | LightGBM | 25 | lgbm_exp091_slow_lean_origi... | 0.953023 | 0.95267 | 0.95290 | 高速な勾配ブースティング木モデル。表形式データの定番。 | ベースライン、特徴量比較、複数特徴量セットのOOF作成に向く。 |
+| 6 | TabICL | 8 | pri589_tabicl_v2_original_a... | 0.950827 | 0.95053 | 0.95085 | 表形式データ向けのin-context learning系モデル。 | GBDT/MLPとは違う予測を出す多様性枠。 |
+| 7 | FFM | 3 | pri2_pri515_exp072_full_5_f... | 0.949178 | 0.95048 | 0.95070 | Field-aware Factorization Machine。カテゴリ同士のinteractionをfieldごとに学ぶ。 | Driver×Raceなどカテゴリ相互作用を拾う候補。 |
+| 8 | Custom NN | 9 | nn_exp022_duplicate_low_card | 0.948923 | 0.95011 | 0.95050 | 自作ニューラルネット。embeddingやarchitectureを自由に設計できる。 | 特徴量やカテゴリembeddingの実験枠。 |
+| 9 | RandomForest | 3 | pri2_pri520_exp125_full_5_f... | 0.948845 | 0.94856 | 0.94885 | 複数の決定木をbaggingする古典的アンサンブル。 | GBDTとは違う木モデル枠。 |
+| 10 | GNN | 3 | pri2_pri516_exp079_full_5_f... | 0.947632 | 0.94873 | 0.94927 | Graph Neural Network。データ間の関係をグラフとして扱う。 | Driver/Race/Compoundなどの関係性を扱う多様性枠。 |
+| 11 | HistGB | 1 | pub007_histboost | 0.947546 | 0.94742 | 0.94827 | Histogram-based Gradient Boosting。bin化して高速に木を学習する。 | LightGBMとは別実装のヒストグラムGBDT枠。 |
+| 12 | FM | 3 | pri2_pri518_exp099_full_5_f... | 0.947381 | 0.94837 | 0.94902 | Factorization Machine。特徴量同士の2次相互作用を低次元で学ぶ。 | カテゴリinteractionが強いときの多様性枠。 |
+| 13 | KNN | 1 | pri536_knn_7123 | 0.947231 | 0.94704 | 0.94719 | 近いデータ点の傾向から予測する距離ベースモデル。 | 木モデルと全く違う予測を作る多様性枠。 |
+| 14 | Other | 8 | pri2_pri511_exp023_full_5_f... | 0.947160 | 0.94981 | 0.95038 | その他のモデル群。 | 個別には弱くてもensemble diversityのために入れる枠。 |
+| 15 | TabTransformer | 3 | pri_exp043_tabtran_domain_s... | 0.947101 | 0.95003 | 0.95059 | Transformerを表形式データに使うモデル。 | カテゴリ文脈をattentionで拾う多様性枠。 |
+| 16 | ExcelFormer | 1 | tal005_excelformer | 0.946912 | 0.94902 | 0.94984 | 表形式データ向けTransformer系モデル。 | 単体主力よりもTALENT系の多様性枠。 |
+| 17 | Cox/survival | 1 | pri522_cox_8007 | 0.946209 | 0.94717 | 0.94747 | イベントがいつ起きるかを扱う生存時間分析モデル。 | ピットをラップ上のイベントとして見る特殊枠。 |
+| 18 | DAE | 1 | pri545_dae_8906 | 0.946046 | 0.94655 | 0.94717 | Denoising AutoEncoder。ノイズ付き入力から元情報を復元するNN。 | 表現学習やNN系多様性枠。 |
+| 19 | AMFormer | 1 | tal007_amformer | 0.944542 | 0.94570 | 0.94649 | 表形式データ向けTransformer系モデル。 | 単体より多様性目的。 |
+| 20 | YDF GBDT | 1 | pri509_ydf_3000 | 0.943788 | 0.94325 | 0.94420 | Yggdrasil Decision ForestsのGBDT。 | 別実装の木モデル枠。 |
+| 21 | MLP-PLR | 1 | tal009_mlp_plr | 0.943629 | 0.94428 | 0.94553 | MLPにPiecewise Linear Representationを組み合わせる表形式NN。 | 数値特徴量の非線形変換を拾う候補。 |
+| 22 | Trompt | 1 | tal006_trompt | 0.943453 | 0.94479 | 0.94550 | 表形式データ向けprompt/attention系モデル。 | TALENT系の多様性枠。 |
+| 23 | TabR | 1 | tal002_tabr | 0.943445 | 0.94579 | 0.94652 | 近傍・retrieval的な発想を使う表形式モデル。 | KNNやNNに近い多様性枠。 |
+| 24 | AutoInt | 1 | tal011_autoint | 0.942763 | 0.94485 | 0.94564 | self-attentionで特徴量interactionを学ぶモデル。 | 高次interactionを拾う候補。 |
+| 25 | GrowNet | 1 | tal012_grownet_fixed | 0.942110 | 0.94304 | 0.94439 | ニューラルネットをboosting的に積み上げるモデル。 | GBDTとNNの中間的な多様性枠。 |
+| 26 | SAINT | 1 | tal010_saint_fixed | 0.941141 | 0.94407 | 0.94500 | 表形式データ向けTransformer。行・列方向のattentionを使う。 | 表形式Transformer枠。 |
+| 27 | ModernNCA | 1 | tal001_modernnca | 0.941058 | 0.94179 | 0.94296 | 近傍表現を学ぶNCA系モデル。 | KNNに近い視点の多様性枠。 |
+| 28 | Gemini-derived | 2 | pri555_gemini_9702 | 0.940993 | 0.94081 | 0.94178 | GeminiなどのLLMから派生したモデル/特徴量実験。 | AI生成モデルの多様性枠。 |
+| 29 | DCN | 1 | tal008_dcn2 | 0.939530 | 0.94204 | 0.94263 | Deep & Cross Network。明示的な特徴量crossを学ぶNN。 | cross featureをNNで拾う候補。 |
+| 30 | GPT-derived | 1 | pri539_gpt_3c | 0.939197 | 0.94313 | 0.94369 | GPT由来のコード/特徴量/モデル実験。 | AI補助で作られた多様性枠。 |
+| 31 | GANDALF | 1 | pri553_gandalf_2800 | 0.937605 | 0.93919 | 0.93990 | 表形式データ向けNN/attention系モデル。 | TALENT系の多様性枠。 |
+| 32 | TabNet | 3 | pri_exp062_tabnet_combo_te | 0.937210 | 0.94094 | 0.94166 | attentionで特徴量を段階的に選ぶ表形式NN。 | 解釈可能性もあるNN枠。 |
+| 33 | NODE | 1 | tal003_node | 0.936121 | 0.93559 | 0.93675 | Neural Oblivious Decision Ensembles。木とNNの中間的モデル。 | GBDTとNNの中間枠。 |
+| 34 | Logistic regression | 1 | pri512_logreg_7011 | 0.933935 | 0.93381 | 0.93359 | 線形分類モデル。特徴量の線形結合で予測する。 | 単体は弱いがbaselineやメタモデルに有用。 |
+| 35 | FTTransformer | 1 | pri517_ftt_6500 | 0.933224 | 0.93579 | 0.93585 | Feature Tokenizer + Transformer。表形式Transformerの代表例。 | Transformer系の多様性枠。 |
+| 36 | Snap/artifact | 4 | pri544_snap_3500 | 0.932076 | 0.93169 | 0.93237 | Playground特有のartifact signalを拾うモデル/特徴量群。 | 合成データの癖を拾う枠。 |
+| 37 | LNN | 1 | pri554_lnn_4400 | 0.893791 | 0.91096 | 0.91106 | 特殊な線形/論理/NN系モデルと考えられる弱い多様性枠。 | 今回の表ではかなり弱く、採用は慎重。 |
+| 追加 | TabPFN / TabPFN v2 | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | 表形式データ向けfoundation model。事前学習済みモデルで小〜中規模表データを予測する。 | 全量は重い可能性があるため、サブサンプル・特徴量絞り込み・Race別でOOF候補にする。 |
+| 追加 | RTDL ResNet / MLP ResNet | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | 表形式データ向けのResNet型MLP。木モデルとは違う滑らかな関係を拾う。 | RealMLPの次に試すNN baseline。 |
+| 追加 | ExtraTreesClassifier | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | RandomForestよりランダム性が強い決定木アンサンブル。 | 単体最強ではないが、OOF相関が低めの多様性枠。 |
+| 追加 | LGBMRanker | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | LightGBMのlearning-to-rankモデル。グループ内で順位を学習する。 | AUCは順位が重要なので、Race_Yearなどをgroupにして試す。 |
+| 追加 | XGBRanker | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | XGBoostのrankingモデル。rank:ndcgやpairwise系objectiveを使える。 | pitする行を上に並べる目的に近い。 |
+| 追加 | CatBoostRanker | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | CatBoostのranking用モデル。カテゴリ処理とranking objectiveを合わせられる。 | Race単位・Race_Year単位で順位学習する特殊候補。 |
+| 追加 | EBM / Explainable Boosting Machine | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | GAM系の解釈しやすいboostingモデル。自動interaction detectionもある。 | 効果を見やすく、OOF多様性にも使える。 |
+| 追加 | H2O AutoML | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | H2OのAutoML。GBM, DRF, XGBoost, GLM, Stacked Ensembleなどを自動で試す。 | AutoGluon/LightAutoML以外のAutoML枠。OOF保存してpoolに追加したい。 |
+| 追加 | ElasticNet Logistic Regression | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | L1/L2を混ぜた正則化付きロジスティック回帰。 | 単体baseline、またはメタモデルの安定版。 |
+| 追加 | LinearSVM / LinearSVC + calibration | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | 線形SVM。確率化にはcalibrationが必要。 | 木モデルと違う線形境界を作る多様性枠。 |
+| 追加 | SGDClassifier | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | 確率的勾配降下法で学習する線形モデル。大規模データに軽い。 | log_lossやmodified_huberで軽量OOFを作れる。 |
+| 追加 | Nystroem + Logistic Regression | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | カーネル近似で非線形特徴空間を作り、Logistic Regressionで学習する。 | RBF SVMの軽量近似として試す候補。 |
+| 追加 | Random Survival Forest | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | 生存時間分析用のRandomForest。イベント発生時間を扱う。 | ピットをいつ起きるイベントかとして見る特殊枠。 |
+| 追加 | Discrete-time hazard model | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | 各ラップでイベントが起きるhazardを分類的に学ぶモデル。 | PitNextLapと発想が近く、F1ピット予測に合う候補。 |
+| 追加 | DeepSurv / DeepHit | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | ニューラルネットを使うsurvival/event-timeモデル。 | ラップ上のpit timingをNNで扱う特殊枠。実装コストは高い。 |
+| 追加 | GaussianNB | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | 特徴量がクラスごとに正規分布すると仮定するNaive Bayes。 | 単体は弱そうだが予測相関が低い可能性。 |
+| 追加 | BernoulliNB | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | 二値特徴量向けNaive Bayes。 | フラグ特徴量やone-hot中心の軽量baseline。 |
+| 追加 | LDA | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | Linear Discriminant Analysis。クラスを線形境界で分ける生成モデル。 | シンプルな線形多様性枠。 |
+| 追加 | QDA | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | Quadratic Discriminant Analysis。クラスごとに異なる共分散を持てる。 | 高次元では不安定なので特徴量を絞って試す。 |
+| 追加 | AdaBoostClassifier | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | 弱い決定木を順番に重み付けして学習する古典的boosting。 | GBDTとは違う古典boosting枠。 |
+| 追加 | BaggingClassifier | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | 同じモデルをbootstrap sampleで複数作って平均する。 | DecisionTreeやLogisticなどをbaggingして多様性OOFを作る。 |
+| 追加 | sklearn GradientBoostingClassifier | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | scikit-learn標準の古典的GBDT。 | 別実装のGBDT枠。 |
+| 追加 | DeepFM | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | FMとDeep Neural Networkを組み合わせ、低次・高次interactionを学ぶ。 | カテゴリinteractionが多い今回の多様性候補。 |
+| 追加 | Wide & Deep | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | 線形のwide部分とNNのdeep部分を組み合わせるモデル。 | 覚えたいカテゴリ規則と一般化したNN表現を両方使う。 |
+| 追加 | xDeepFM | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | 明示的・暗黙的な高次interactionを学ぶDeepFM拡張。 | Driver×Race×Compoundのような高次interaction候補。 |
+| 追加 | FiBiNET | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | feature importanceとbilinear interactionを使うCTR系モデル。 | カテゴリinteraction重視の多様性候補。 |
+| 追加 | AFM | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | Attention Factorization Machine。重要なinteractionにattentionをかける。 | FM系の中でも解釈しやすいinteraction枠。 |
+| 追加 | LGBM DART | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | LightGBMのDART booster。木をdropoutしながらboostingする。 | 通常LGBMと違う正則化・予測を作れる。 |
+| 追加 | LightGBM GOSS | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | Gradient-based One-Side Sampling。勾配の大きい行を重視するLightGBM設定。 | 通常のbagging LGBMと違うOOFを作る候補。 |
+| 追加 | XGBoost DART booster | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | XGBoostのDART。木をdropoutして過学習を抑えるbooster。 | 通常XGBと違う予測を出す候補。 |
+| 追加 | XGBoost survival:aft | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | XGBoostのsurvival objective。イベント時間を扱う。 | ピットタイミングをsurvival問題として見る候補。 |
+| 追加 | CatBoost CrossEntropy | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | CatBoostの別loss設定。Loglossとは少し違う学習になる。 | CatBoostの予測バリエーション作成。 |
+| 追加 | CatBoost CTR設定違い | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | CatBoostのカテゴリ統計量・CTRの設定を変える実験。 | Driver, Race, Compoundの扱いを変えたOOFを作る。 |
+| 追加 | LightAutoML / FLAML variants | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | AutoMLで複数モデルやHPを自動探索する。 | 1位が使っていたAutoML枠。自分のfoldでOOF保存する。 |
+| 追加 | AutoGluon meta model | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | AutoGluonを元特徴量ではなくOOF列に対して使うメタアンサンブラー。 | 1位の重要要素。LR with Logitsとは別のメタ予測を作る。 |
+| 追加 | Ridge / RidgeClassifier meta | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | L2正則化された線形モデル。 | OOFメタデータの安定した重み付け候補。 |
+| 追加 | LightGBM meta model | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | OOF列を入力にしたLightGBMの2段目モデル。 | 非線形なモデル組み合わせを学ぶが、過学習注意。 |
+| 追加 | CatBoost meta model | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | OOF列を入力にしたCatBoostの2段目モデル。 | メタモデルの非線形候補。正則化が重要。 |
+| 追加 | Simple MLP meta | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | OOF列を入力にした小さなニューラルネット。 | LRでは拾えないモデル間interactionを拾う候補。 |
+| 追加 | EBM meta model | 未実施 | 未実施 | 未実施 | 未実施 | 未実施 | OOF列に対する解釈可能なメタモデル。 | どのOOFが効いているか見やすい。 |
 
 ここで重要なのは、「モデル名をたくさん知っていたから強い」というより、**違う性格の予測をたくさん作った**ことです。
 
